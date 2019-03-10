@@ -14,7 +14,7 @@ Spring boot application monitoing with prometheus and grafana
 ### Build  
 
 ```bash
-$ ./gradlew clean build
+$ ./gradlew clean build -x test
 ```
 
 ### Bake 
