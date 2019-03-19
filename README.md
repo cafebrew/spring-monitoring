@@ -8,7 +8,8 @@
 Spring boot application monitoing with prometheus and grafana
 
 [Getting Started](https://github.com/cafebrew/spring-with-docker/blob/master/HELP.md)
-[BLOG Article] (https://coldbrew.dev/26)
+
+[BLOG Article](https://coldbrew.dev/26)
 
 ## Script
 
