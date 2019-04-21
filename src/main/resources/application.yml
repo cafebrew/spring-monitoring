@@ -1,3 +1,5 @@
+server:
+  port: 8080
 spring:
   application:
     name: SpringMonitoring
@@ -19,6 +21,10 @@ spring:
     encoding: UTF-8
 management:
   metrics:
+    web:
+      server:
+        auto-time-requests: true
+        requests-metric-name: http.server.requests
     export:
       prometheus:
         enabled: true

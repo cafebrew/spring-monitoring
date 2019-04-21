@@ -37,7 +37,7 @@ services:
   app:
     container_name: app
     hostname: app
-    image: hubtea/spring-monitoring:latest
+    image: cloudbuild/spring-monitoring:latest
     ports:
       - "8080:8080"
     restart: always

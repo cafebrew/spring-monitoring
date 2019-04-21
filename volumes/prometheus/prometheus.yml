@@ -4,7 +4,6 @@ global:
   external_labels:
     monitor: 'codelab-monitor'
 rule_files:
-
 scrape_configs:
   - job_name: 'prometheus'
     scrape_interval: 5s
@@ -14,8 +13,8 @@ scrape_configs:
     scrape_interval: "15s"
     static_configs:
       - targets: ['exporter:9100']
-  - job_name: 'hystrix'
+  - job_name: 'spring-monitoring'
     scrape_interval: 5s
     metrics_path: '/actuator/prometheus'
     static_configs:
-      - targets: ['localhost:8080']
+      - targets: ['app:8080']
