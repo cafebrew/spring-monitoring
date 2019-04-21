@@ -7,5 +7,5 @@ import spring.monitoring.model.Feed;
 @Repository
 public interface FeedRepository extends CrudRepository<Feed, Long> {
 
-  Iterable<Feed> findByOwnerId(Long id);
+  Iterable<Feed> findByOwnerUsername(String username);
 }

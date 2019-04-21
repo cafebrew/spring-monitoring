@@ -1,4 +1,4 @@
-package spring.monitoring;
+package spring.monitoring.config;
 
 import io.micrometer.core.aop.TimedAspect;
 import io.micrometer.core.instrument.Counter;
@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class Config {
+public class MetricConfiguration {
 
   @Value("${spring.application.name}")
   private String applicationName;
@@ -31,4 +31,5 @@ public class Config {
   public TimedAspect timedAspect(MeterRegistry registry) {
     return new TimedAspect(registry);
   }
+
 }

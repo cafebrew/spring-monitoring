@@ -48,11 +48,19 @@ jib {
   }
 }
 
+configurations {
+  compile.exclude module: "spring-boot-starter-tomcat"
+}
+
 dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-web'
+  implementation 'org.springframework.boot:spring-boot-starter-undertow'
+  implementation 'org.springframework.boot:spring-boot-starter-security'
   implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
   implementation 'org.springframework.boot:spring-boot-starter-actuator'
   testImplementation "org.springframework.boot:spring-boot-starter-test"
+
+  testImplementation "org.springframework.security:spring-security-test"
 
   testImplementation "org.spockframework:spock-core:${spockVersion}"
   testImplementation "org.spockframework:spock-spring:${spockVersion}"

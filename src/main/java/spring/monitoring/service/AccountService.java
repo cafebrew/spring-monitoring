@@ -8,35 +8,41 @@ import io.micrometer.core.instrument.Counter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import spring.monitoring.NotFoundException;
-import spring.monitoring.model.User;
-import spring.monitoring.repository.UserRepository;
+import spring.monitoring.model.Account;
+import spring.monitoring.repository.AccountRepository;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class AccountService {
 
-  private final UserRepository repository;
+  private final AccountRepository repository;
 
   private final Counter userJoinCounter;
 
   @Timed("timed-detail")
-  public Optional<User> detail(String username) {
+  public Optional<Account> detail(String username) {
     return repository.findByUsername(username);
+  }
+
+  @Timed("timed-detail")
+  public Optional<Account> detail(Long id) {
+    return repository.findById(id);
   }
 
   @Timed("timed-create")
   @Transactional
-  public User create(User user) {
+  public Account create(Account account) {
     userJoinCounter.increment();
-    return repository.save(user);
+    account.setRoles("ROLE_USER");
+    return repository.save(account);
   }
 
   @Timed("timed-modify")
   @Transactional
-  public User modify(Long id, User request) {
-    User user = repository.findById(id).orElseThrow(NotFoundException::new);
-    user.setEmail(request.getEmail());
-    return repository.save(user);
+  public Account modify(Long id, Account request) {
+    Account account = repository.findById(id).orElseThrow(NotFoundException::new);
+    account.setEmail(request.getEmail());
+    return repository.save(account);
   }
 
   @Timed("timed-remove")
