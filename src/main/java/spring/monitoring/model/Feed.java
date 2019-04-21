@@ -1,11 +1,9 @@
 package spring.monitoring.model;
 
 import java.time.LocalDateTime;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,9 +34,9 @@ public class Feed {
 
   private String url;
 
-  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  @JoinColumn(name = "user_id")
-  private User owner;
+  @ManyToOne
+  @JoinColumn(name = "owner_id")
+  private Account owner;
 
   @CreatedDate
   @Column(name = "create_at", updatable = false)

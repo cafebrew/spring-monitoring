@@ -1,8 +1,11 @@
 package spring.monitoring.api;
 
 
+import java.security.Principal;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,27 +20,29 @@ import spring.monitoring.model.Feed;
 import spring.monitoring.service.FeedService;
 
 @RestController
-@RequestMapping
+@RequestMapping("/feed")
 @RequiredArgsConstructor
 public class FeedController {
 
   private final FeedService service;
 
-  @GetMapping("/{userId}/feed")
-  public ResponseEntity<Iterable<Feed>> list(@PathVariable Long userId) {
-    return ResponseEntity.ok(service.list(userId));
+  @GetMapping
+  public ResponseEntity<Iterable<Feed>> list(Principal principal) {
+    return ResponseEntity.ok(service.list(principal.getName()));
   }
 
-  @GetMapping("/feed/{feedId}")
+  @GetMapping("/{feedId}")
+  @PreAuthorize("hasRole('ROLE_USER')")
   public ResponseEntity<Feed> detail(@PathVariable Long feedId) {
     return service.detail(feedId)
       .map(ResponseEntity::ok)
       .orElseThrow(NotFoundException::new);
   }
 
-  @PostMapping("/{userId}/feed")
-  public ResponseEntity<Feed> create(@PathVariable Long userId, @RequestBody Feed request) {
-    Feed feed = service.create(userId, request);
+  @PostMapping
+  @PreAuthorize("hasRole('ROLE_USER')")
+  public ResponseEntity<Feed> create(Principal principal, @RequestBody Feed request) {
+    Feed feed = service.create(principal.getName(), request);
     return ResponseEntity.created(
       MvcUriComponentsBuilder.fromController(getClass())
         .path("/feed/{feedId}")
@@ -45,16 +50,18 @@ public class FeedController {
     ).body(feed);
   }
 
-  @PostMapping("/feed/{feedId}")
+  @PostMapping("/{feedId}")
+  @PreAuthorize("hasRole('ROLE_USER')")
   public ResponseEntity<Feed> modify(@PathVariable Long feedId, @RequestBody Feed request) {
     return ResponseEntity.created(
       ServletUriComponentsBuilder.fromCurrentRequestUri().build(feedId)
     ).body(service.modify(feedId, request));
   }
 
-  @DeleteMapping("/{id}")
-  public ResponseEntity delete(@PathVariable Long id) {
-    service.remove(id);
+  @DeleteMapping("/{feedId}")
+  @PreAuthorize("hasRole('ROLE_USER')")
+  public ResponseEntity delete(@PathVariable Long feedId) {
+    service.remove(feedId);
     return ResponseEntity.noContent().build();
   }
 }

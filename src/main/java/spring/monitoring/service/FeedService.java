@@ -6,10 +6,10 @@ import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import spring.monitoring.NotFoundException;
+import spring.monitoring.model.Account;
 import spring.monitoring.model.Feed;
-import spring.monitoring.model.User;
+import spring.monitoring.repository.AccountRepository;
 import spring.monitoring.repository.FeedRepository;
-import spring.monitoring.repository.UserRepository;
 
 @Service
 @RequiredArgsConstructor
@@ -17,10 +17,10 @@ public class FeedService {
 
   private final FeedRepository repository;
 
-  private final UserRepository userRepository;
+  private final AccountRepository accountRepository;
 
-  public Iterable<Feed> list(Long id) {
-    return repository.findByOwnerId(id);
+  public Iterable<Feed> list(String username) {
+    return repository.findByOwnerUsername(username);
   }
 
   public Optional<Feed> detail(Long id) {
@@ -28,9 +28,9 @@ public class FeedService {
   }
 
   @Transactional
-  public Feed create(Long userId, Feed feed) {
-    User user = userRepository.findById(userId).orElseThrow(NotFoundException::new);
-    feed.setOwner(user);
+  public Feed create(String username, Feed feed) {
+    Account account = accountRepository.findByUsername(username).orElseThrow(NotFoundException::new);
+    feed.setOwner(account);
     return repository.save(feed);
   }
 
