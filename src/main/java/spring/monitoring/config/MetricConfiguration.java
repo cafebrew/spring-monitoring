@@ -1,8 +1,12 @@
 package spring.monitoring.config;
 
+import java.net.InetAddress;
+import java.util.List;
+
 import io.micrometer.core.aop.TimedAspect;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Tag;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryCustomizer;
 import org.springframework.context.annotation.Bean;
@@ -15,16 +19,32 @@ public class MetricConfiguration {
   private String applicationName;
 
   @Bean
-  public MeterRegistryCustomizer<MeterRegistry> metricsCommonTags() {
-    return registry -> registry.config().commonTags("profile", "my app");
+  public MeterRegistryCustomizer<MeterRegistry> meterRegistryCustomizer() {
+    return registry -> registry.config()
+      .commonTags(List.of(
+        Tag.of("application", applicationName),
+        Tag.of("instance", InetAddress.getLoopbackAddress().getHostAddress()))
+      );
   }
 
   @Bean
-  public Counter userJoinCounter(MeterRegistry registry) {
-    return Counter.builder("instance")
-      .description("indicates instance count of the object")
-      .tags("dev", "performance")
-      .register(registry);
+  public Counter newUserCounter(MeterRegistry registry) {
+    return Counter.builder("newUserCounter")
+      .description("indicate new user count")
+      .tags(List.of(
+        Tag.of("module", "user"),
+        Tag.of("action", "join"))
+      ).register(registry);
+  }
+
+  @Bean
+  public Counter newFeedCounter(MeterRegistry registry) {
+    return Counter.builder("newFeedCounter")
+      .description("indicate new feed count")
+      .tags(List.of(
+        Tag.of("module", "feed"),
+        Tag.of("action", "create"))
+      ).register(registry);
   }
 
   @Bean
