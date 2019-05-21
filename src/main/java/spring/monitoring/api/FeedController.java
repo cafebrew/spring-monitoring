@@ -2,8 +2,11 @@ package spring.monitoring.api;
 
 
 import java.security.Principal;
+import java.util.List;
 
-import lombok.RequiredArgsConstructor;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,10 +24,19 @@ import spring.monitoring.service.FeedService;
 
 @RestController
 @RequestMapping("/feed")
-@RequiredArgsConstructor
 public class FeedController {
 
   private final FeedService service;
+
+  private final Counter counter;
+
+  public FeedController(FeedService service, MeterRegistry meterRegistry) {
+    this.service = service;
+    counter = Counter.builder("feed-counter")
+      .description("indicate new feed count")
+      .tags(List.of(Tag.of("module", "account")))
+      .register(meterRegistry);
+  }
 
   @GetMapping
   public ResponseEntity<Iterable<Feed>> list(Principal principal) {
@@ -42,7 +54,10 @@ public class FeedController {
   @PostMapping
   @PreAuthorize("hasRole('ROLE_USER')")
   public ResponseEntity<Feed> create(Principal principal, @RequestBody Feed request) {
-    Feed feed = service.create(principal.getName(), request);
+    var feed = service.create(principal.getName(), request);
+
+    counter.increment();
+
     return ResponseEntity.created(
       MvcUriComponentsBuilder.fromController(getClass())
         .path("/feed/{feedId}")

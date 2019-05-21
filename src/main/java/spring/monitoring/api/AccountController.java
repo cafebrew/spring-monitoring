@@ -1,8 +1,11 @@
 package spring.monitoring.api;
 
 import java.security.Principal;
+import java.util.List;
 
-import lombok.RequiredArgsConstructor;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,10 +26,20 @@ import spring.monitoring.service.AccountService;
 @Slf4j
 @RestController
 @RequestMapping("/account")
-@RequiredArgsConstructor
 public class AccountController {
 
+
   private final AccountService service;
+
+  private final Counter counter;
+
+  public AccountController(AccountService service, MeterRegistry meterRegistry) {
+    this.service = service;
+    counter = Counter.builder("account-counter")
+      .description("indicate new account count")
+      .tags(List.of(Tag.of("module", "account")))
+      .register(meterRegistry);
+  }
 
   @GetMapping
   @PreAuthorize("hasRole('ROLE_USER')")
@@ -39,7 +52,8 @@ public class AccountController {
   @PostMapping
   @PreAuthorize("hasRole('ROLE_ADMIN')")
   public ResponseEntity<Account> create(@RequestBody Account request) {
-    Account account = service.create(request);
+    var account = service.create(request);
+    counter.increment();
     return ResponseEntity.created(
       MvcUriComponentsBuilder.fromController(getClass())
         .path("/account/{id}")

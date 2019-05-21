@@ -4,7 +4,6 @@ import java.net.InetAddress;
 import java.util.List;
 
 import io.micrometer.core.aop.TimedAspect;
-import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,26 +24,6 @@ public class MetricConfiguration {
         Tag.of("application", applicationName),
         Tag.of("instance", InetAddress.getLoopbackAddress().getHostAddress()))
       );
-  }
-
-  @Bean
-  public Counter newUserCounter(MeterRegistry registry) {
-    return Counter.builder("newUserCounter")
-      .description("indicate new user count")
-      .tags(List.of(
-        Tag.of("module", "user"),
-        Tag.of("action", "join"))
-      ).register(registry);
-  }
-
-  @Bean
-  public Counter newFeedCounter(MeterRegistry registry) {
-    return Counter.builder("newFeedCounter")
-      .description("indicate new feed count")
-      .tags(List.of(
-        Tag.of("module", "feed"),
-        Tag.of("action", "create"))
-      ).register(registry);
   }
 
   @Bean
