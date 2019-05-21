@@ -7,7 +7,6 @@ plugins {
 }
 
 ext {
-  groovyVersion = "2.5.6"
   mysqlVersion = "8.0.13"
   flywaydbVersion = "5.2.4"
   micrometerVersion = "1.1.4"
@@ -17,7 +16,9 @@ ext {
   dockerImageName = "cloudbuild/${project.name}"
 }
 
-ext["groovy.version"] = groovyVersion
+ext {
+  set('groovy.version', '2.5.6')
+}
 
 apply plugin: 'io.spring.dependency-management'
 
@@ -41,11 +42,7 @@ jib {
     tags = ["${project.version}".toString(), "latest"]
     credHelper = "osxkeychain"
   }
-  container {
-    jvmFlags = ['-Djava.security.egd=file:/dev/./urandom']
-    mainClass = 'spring.monitoring.Application'
-    ports = ['8080']
-  }
+  container.jvmFlags = ['-Djava.security.egd=file:/dev/./urandom']
 }
 
 configurations {
