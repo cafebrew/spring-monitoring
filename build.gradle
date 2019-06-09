@@ -1,6 +1,6 @@
 plugins {
-  id "org.springframework.boot" version "2.1.4.RELEASE"
-  id "com.google.cloud.tools.jib" version "1.1.2"
+  id "org.springframework.boot" version "2.1.5.RELEASE"
+  id "com.google.cloud.tools.jib" version "1.2.0"
   id "org.flywaydb.flyway" version "5.2.4"
   id "groovy"
   id "java"
@@ -13,7 +13,7 @@ ext {
   spockVersion = "1.3-groovy-2.5"
 
   dockerBaseImage = "amazoncorretto:11"
-  dockerImageName = "cloudbuild/${project.name}"
+  dockerImageName = "dockercamp/${project.name}"
 }
 
 ext {
@@ -40,9 +40,7 @@ jib {
   to {
     image = "${dockerImageName}"
     tags = ["${project.version}".toString(), "latest"]
-    credHelper = "osxkeychain"
   }
-  container.jvmFlags = ['-Djava.security.egd=file:/dev/./urandom']
 }
 
 configurations {
@@ -58,7 +56,6 @@ dependencies {
   testImplementation "org.springframework.boot:spring-boot-starter-test"
 
   testImplementation "org.springframework.security:spring-security-test"
-
   testImplementation "org.spockframework:spock-core:${spockVersion}"
   testImplementation "org.spockframework:spock-spring:${spockVersion}"
 

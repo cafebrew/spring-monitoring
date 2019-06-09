@@ -1,20 +1,9 @@
 language: java
 jdk:
-  - openjdk8
+  - openjdk11
 branches:
   only:
     - master
-env:
-  global:
-    - secure: ZypHiKrCcDAOOdmXHsuJZt0ErLGmHomcrSsB7A5UVYJ2Ofq35KFMSn69fF7McsSisBYF+0TnmeNjryTnbOvPRkyAy6w7SFlRQaEmoEqle501P/KfI1pjJcCHd9tPGb4/F++DoRQI7f0wFDaXmW+ueWE5tjyM0oO/MvdXVLD73J1L+Ul5XFhqddB1mwLwh+AON747JCDG/dXGxkN07QdYcMPG17MUjFbeo7ccVQeKWMF2RTJXBatb0LElrus7RDpAtvL7FsQVHdzy70uq5+KWMjw0dl+CuiOXW4cy0dT5joixHF7z3Nf2GVNxM6FcCuQicnE9l6r8GVbvNHdKzdv2HRz/DqefSai67S2WY16xSpWeSgJ1C9jFJS7vq1urlnuQ2JR9PIt6R/BJkeWRPJRZo4y4qPqvBfSGIzHmaU7fJbtPdlhW2fEKUHtR4InwNCDu2MqEwaBUgKa8AkK3Ad+ZzBzeCQreTUeBusiTXFXZaoPPo+f4Hp05oNzSJdlX0NTZg9U0G43LYhaa6NwdHB/p8siJ3KTiJXhoZX8Ysno+43irFJMrBqESl0eOPq+NvtccATfQTTW/7NBHhu3R9LduTYMLk7dQbH2gac/WW0KiK8FdL/zaz/3SXxSGzfaHr3/Z6BixVow1L5wBFmwgEkv0rc1uKVh8YABs+zacvmGU9rM=
-    - secure: haVONM28693vAfMh9o2brby+peatafadU6KwGFi2znlG320rxfG+tK78wjXTPygJALWv3Nvp4Vb09UbjDStKIrh0oYtRuo9i9FYv7As4ailQTGmOBhsDUL8RjaQxOjj2/qYuN6iIpnvhQa1+flMXIQrcKcIdX+6fnHnpHckqlnQeDA0k4hgBobE++cQHbkwYHxf6XeJjCqyXsZocxstl0KZxMo+WIqsyRnytAYucksxOvUoKi7fKSh4nLCwKQ8BZB7Lbjx7fNDfgbNZCkJOAF+dM11SXgQ3MQLqdbsrMbzWKtOvNjc8IXHthYcf4cm8nAmT93L0X10b1sxnWh9F/nSlZ50mWbWOFxyIPmtPhpCX6ywzGB9ODQZTeigvMPW6AuwQLalTelPSo97Gn/rZSX4E4buDHq3d4TccjaUxrNVzGlXvCnvD331vHX5S7CtHl3kJJzDHtshrBnunUMMZzFxRfvCDRfsEOa8CYZHzyA+MhuDBWILZ8vuPpSKrrWDu4QL9bwAg6cpCVV6uuZ1D0xE6CGwj5qm8aA0d4D6Jx4jkJamemtQe84q8i7jB2LkLwDZ3SMwl9fF6HLHWoYumf/5TBS2R6bJB/A5rA9gmLW9YaIh9O368ARUssPb3UGQNsrzYvgu/BkzrCfIbu0CcbMhN2mtp880Zpw/f8m5wh+n4=
-    - secure: GQI1YtG7Ig72ktqyz23POfvcwWSs5/qRdF3s+WHWVO/h1MlycWJIp9/NIUH8P/M9fR8ZPeVHQEsTaZ85ScfctSxHZufGBuTVi8Ead5hT+0HdGKx6t1zbLYzmwnreH4HdjsyoROVo4WAl+5hkfCDILDvs7MtwtkHOGE4y19sg3p0EBWa8wiOBgCECy6UDj1J8KfQgl5X/l7G73dq+G4zhHXOxHqnOD01JFpWMwnfNcLHVl9CJ7lSIS/tScEf3YhF8cA6lybTaF9O/1p+BN8dKNoyEiU5FuIAqPfnsKtWAu8Q3kTE3Gz4/12gEUU1xROoxMhOw9Qw2AGWvi0NAEGNpQGAqyf/BjDB6DC5vXTvVQGWa9Cpg6De0N7L/VC9ippSosUrwHNxa7Na7IiQTkAqXkgPc5QbXvNpvs4QQuX1db5ZNxp7mDHqRdT3lq67eixb+nGOle8HQh+SS0OZ9mZ5KTmEmyyRkRiCRg2cWJszca97wdSkMkHEgiRcno5I4JTv03UXcncE7QzKEfVO4PkE5qif2Gxx/aFHQsvVkrR50Hu2hO5Pfry3Rg+GMOLg9RTy7Pi+m5IQeBY8W8fPJYFHzyTdfAIxThkVmE7tXIDMRgs8ZoXxu6OkFyF9uKSFDk64J4etvCfQw8C0mDarIoYkcodtYCdqcMVgQEbwMDoJX2sE=
-    - secure: IK97Eqc+ceTdEN+cOJRdXoylEuKusvP01kGOvW/M+lFHIMvNCO1+YR3a2aTf4816p6tQERqZ3Aq/9MtiBE/OGhD7YOp3uSNBHO9MsxJeA7/5CGcPDNRvGYA440CjTKrc4JFGc1ogH3DBv8OaZggWWa5eF/ydiaMGTUktm2xc6IDNv1JIpu17QVT95KyQi3wwXDr5D/s7Nd2MXWcaviYWXM0rftt+5iIDZfCreP/Od5d53wzl+P3fBWo3dFY5ieOzcUHvfk9FmyknEtR4S70I7gtXlMC29Q7cj6nosCA+YaGsKIoi1LRoHyGZf+gVZPqDk/XZIVPylM+RbhIrubrgbxkf4yZbgCoIw5Re8is5mOIQgZsFO6v6fBZ0yfh6NgTg65QdsXVk6Rbm3ah+7uJdohSiS3jNGo4IIsUudcnvvfWCLIBOtbrRuEsxjYTvpzokZRh7i1iV+DiKVBFKdlKqOHKwHunPTkUcqDAy1CzNghmGeaqvaKAUPlq5gW9QQLlfc5pNG3N8b7efCfBeEbwsNr42XhN4a3S1SuGe4EsXbmhzm/I1xK52rpLoVY+s/lNJVgz5x7NTXzmY9MeHrBjsQ/KPHAidy2Twns5f7qkZI/PSMonh6mLnB0Y4f1cM5Dncp8p5zdwaYYV8Vs4PnG6mkIXX0YO/paAKSTyfhlEqcBI=
-addons:
-  sonarcloud:
-    organization: cafebrew-github
-    token:
-      secure: "$SONAR_TOKEN"
 cache:
   directories:
     - "$HOME/.m2/repository"
@@ -22,13 +11,3 @@ cache:
 script:
   - "./gradlew clean build -x test"
   - "./gradlew jib -Djib.to.auth.username=$DOCKER_USER -Djib.to.auth.password=$DOCKER_PASS"
-  - sonar-scanner
-deploy:
-  - provider: releases
-    api_key: "$GITHUB_TOKEN"
-    file: "./build/libs/spring-monitoting.jar"
-    skip_cleanup: true
-    on:
-      tags: true
-notifications:
-  slack: coldbrew-group:9SbCeTSFoeGCjAScT1Z2jGwN
