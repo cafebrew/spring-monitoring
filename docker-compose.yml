@@ -37,7 +37,7 @@ services:
   app:
     container_name: app
     hostname: app
-    image: cloudbuild/spring-monitoring:latest
+    image: dockercamp/spring-monitoring:latest
     ports:
       - "8080:8080"
     restart: always
